@@ -1,4 +1,5 @@
 # docker-pg_backup
+
 Docker container with pg_backup_rotated.sh script from https://wiki.postgresql.org/wiki/Automated_Backup_on_Linux
 This image runs pg_backup_rotated.sh daily via cron at configurable time. pg_backup_rotated.sh produces backups of various configurable formats and rotates weekly and daily backups.
 
@@ -15,7 +16,7 @@ Docker environment variables:
  - ENABLE_PLAIN_BACKUPS - will produce a gzipped plain-format backup if set to "yes" (default)
  - ENABLE_CUSTOM_BACKUPS - will produce a custom-format backup if set to "yes" (default)
  - SCHEMA_ONLY_LIST - List of strings to match against in database name, separated by space or comma, for which we only wish to keep a backup of the schema, not the data. Any database names which contain any of these values will be considered candidates. (e.g. "system_log" will match "dev_system_log_2010-01"). Default is empty list.
- 
+
 Volumes:
  - /backups - backups go there
 
@@ -26,3 +27,52 @@ You can also tmpfs /var/lib/postgresql/data, it is exported by base image but is
 
 The backup script code is taken as-is from postgress wiki, I am not sure which license is it, I claim no rights to this code.
 Configuration script is based on config file from postgres wiki. The code that is written by me is in the public domain (CC0). 
+
+## Examples
+
+Schedule backup from continer in same host machine.
+
+```bash
+sudo docker run --rm \
+  --name postgres_backup \
+  --network <docker-network-name> \
+  -e POSTGRES_HOSTNAME=<docker-container-name> \
+  -e POSTGRES_USER=<pg-user> \
+  -e POSTGRES_PASSWORD=<pg-password> \
+  -e CRON_RUN_HOUR=0 \
+  -e CRON_RUN_MINUTE=0 \
+  -e ENABLE_CUSTOM_BACKUPS=yes \
+  -e ENABLE_PLAIN_BACKUPS=no \
+  -v /backups:/backups \
+  pg_backup_rotated
+```
+
+Schedule backup from network PG Server.
+
+```bash
+sudo docker run --rm \
+  --name postgres_backup \
+  -e POSTGRES_HOSTNAME=<pg-server> \
+  -e POSTGRES_USER=<pg-user> \
+  -e POSTGRES_PASSWORD=<pg-password> \
+  -e CRON_RUN_HOUR=0 \
+  -e CRON_RUN_MINUTE=0 \
+  -e ENABLE_CUSTOM_BACKUPS=yes \
+  -e ENABLE_PLAIN_BACKUPS=no \
+  -v /backups:/backups \
+  pg_backup_rotated
+```
+
+Execute backup and remove temporary container used in backup.
+
+```bash
+sudo docker run --rm \
+  --network <docker-network-name> \
+  -e POSTGRES_HOSTNAME=<docker-container-name> \
+  -e POSTGRES_USER=<pg-user> \
+  -e POSTGRES_PASSWORD=<pg-password> \
+  -e ENABLE_CUSTOM_BACKUPS=yes \
+  -e ENABLE_PLAIN_BACKUPS=no \
+  -v /backups:/backups \
+  pg_backup_rotated /pg_backup_rotated.sh
+```
