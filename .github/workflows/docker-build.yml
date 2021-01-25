@@ -17,12 +17,30 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
+      - name: Build and push PG 11
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: fabionaspolini/pg_scripts:latest
+          tags: fabionaspolini/pg_scripts:11
+          build-args: |
+            PG_VERSION=11
+      - name: Build and push PG 12
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: fabionaspolini/pg_scripts:12
+          build-args: |
+            PG_VERSION=12
+      - name: Build and push PG 13
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            fabionaspolini/pg_scripts:latest
+            fabionaspolini/pg_scripts:13
           build-args: |
             PG_VERSION=13
       - name: Image digest
