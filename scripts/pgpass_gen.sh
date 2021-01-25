@@ -8,4 +8,5 @@ else
   export PGPASSWORD="${POSTGRES_PASSWORD}"
 fi
 
-exec "$@"
+echo "*:*:*:${POSTGRES_USER-postgres}:$PGPASSWORD" > /root/.pgpass
+chmod 0600 /root/.pgpass

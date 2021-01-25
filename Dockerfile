@@ -1,4 +1,4 @@
-FROM postgres:alpine
+FROM postgres:12-alpine
 
 COPY /scripts /
 
