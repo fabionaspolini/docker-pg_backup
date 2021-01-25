@@ -28,7 +28,7 @@ You can also tmpfs /var/lib/postgresql/data, it is exported by base image but is
 The backup script code is taken as-is from postgress wiki, I am not sure which license is it, I claim no rights to this code.
 Configuration script is based on config file from postgres wiki. The code that is written by me is in the public domain (CC0). 
 
-## Examples
+## How use this image
 
 Schedule backup from continer in same host machine.
 
@@ -44,7 +44,7 @@ sudo docker run --rm \
   -e ENABLE_CUSTOM_BACKUPS=yes \
   -e ENABLE_PLAIN_BACKUPS=no \
   -v /backups:/backups \
-  pg_backup_rotated
+  fabionaspolini/pg_scripts
 ```
 
 Schedule backup from network PG Server.
@@ -60,7 +60,7 @@ sudo docker run --rm \
   -e ENABLE_CUSTOM_BACKUPS=yes \
   -e ENABLE_PLAIN_BACKUPS=no \
   -v /backups:/backups \
-  pg_backup_rotated
+  fabionaspolini/pg_scripts
 ```
 
 Execute backup and remove temporary container used in backup.
@@ -74,5 +74,13 @@ sudo docker run --rm \
   -e ENABLE_CUSTOM_BACKUPS=yes \
   -e ENABLE_PLAIN_BACKUPS=no \
   -v /backups:/backups \
-  pg_backup_rotated /pg_backup_rotated.sh
+  fabionaspolini/pg_scripts /pg_backup_rotated.sh
+```
+
+## How build this image
+
+```bash
+sudo docker build --build-arg PG_VERSION=13 -t pg_scripts:13 -t pg_scripts:latest .
+sudo docker build --build-arg PG_VERSION=12 -t pg_scripts:12 .
+sudo docker build --build-arg PG_VERSION=12 -t pg_scripts:11 .
 ```

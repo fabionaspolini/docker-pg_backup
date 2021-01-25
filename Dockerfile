@@ -1,4 +1,5 @@
-FROM postgres:12-alpine
+ARG PG_VERSION=13
+FROM postgres:$PG_VERSION-alpine
 
 COPY /scripts /
 
