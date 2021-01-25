@@ -18,7 +18,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -z $CONFIG_FILE_PATH ] ; then
-        SCRIPTPATH=$(cd ${0%/*} && pwd -P)
+        SCRIPTPATH=$(cd ${0%/*} && echo "/root")
         CONFIG_FILE_PATH="${SCRIPTPATH}/pg_backup.config"
 fi
 

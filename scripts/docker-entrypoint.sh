@@ -1,10 +1,10 @@
 #!/bin/sh
 set -e
 
-/pgpass_gen.sh
+/scripts/pgpass_gen.sh
 
-/crontab_gen.sh
+/scripts/crontab_gen.sh
 
-/config_gen.sh
+/scripts/config_gen.sh
 
 exec "$@"

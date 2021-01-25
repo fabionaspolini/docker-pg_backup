@@ -33,8 +33,9 @@ Configuration script is based on config file from postgres wiki. The code that i
 Schedule backup from continer in same host machine.
 
 ```bash
-sudo docker run --rm \
+sudo docker run \
   --name postgres_backup \
+  --restart=always \
   --network <docker-network-name> \
   -e POSTGRES_HOSTNAME=<docker-container-name> \
   -e POSTGRES_USER=<pg-user> \
@@ -50,8 +51,9 @@ sudo docker run --rm \
 Schedule backup from network PG Server.
 
 ```bash
-sudo docker run --rm \
+sudo docker run \
   --name postgres_backup \
+  --restart=always \
   -e POSTGRES_HOSTNAME=<pg-server> \
   -e POSTGRES_USER=<pg-user> \
   -e POSTGRES_PASSWORD=<pg-password> \
@@ -74,7 +76,7 @@ sudo docker run --rm \
   -e ENABLE_CUSTOM_BACKUPS=yes \
   -e ENABLE_PLAIN_BACKUPS=no \
   -v /backups:/backups \
-  fabionaspolini/pg_scripts /pg_backup_rotated.sh
+  fabionaspolini/pg_scripts /scripts/pg_backup_rotated.sh
 ```
 
 ## How build this image
