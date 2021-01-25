@@ -45,7 +45,13 @@ DAYS_TO_KEEP=${DAYS_TO_KEEP-7}
 # How many weeks to keep weekly backups
 WEEKS_TO_KEEP=${WEEKS_TO_KEEP-5}
  
+ 
+#### SETTINGS FOR MAINTENANCE ####
+ 
+ENABLE_VACUUM=${ENABLE_VACUUM-yes}
+ENABLE_ANALYZE=${ENABLE_ANALYZE-yes}
+ENABLE_REINDEX=${ENABLE_REINDEX-yes}
+ 
 ######################################
 
 EOF
-
