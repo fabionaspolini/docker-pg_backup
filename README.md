@@ -86,3 +86,8 @@ sudo docker build --build-arg PG_VERSION=13 -t pg_scripts:13 -t pg_scripts:lates
 sudo docker build --build-arg PG_VERSION=12 -t pg_scripts:12 .
 sudo docker build --build-arg PG_VERSION=12 -t pg_scripts:11 .
 ```
+
+## Source Repository
+
+Official repository: <https://github.com/fabionaspolini/docker-pg_scripts>
+
