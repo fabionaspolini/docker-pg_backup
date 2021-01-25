@@ -1,6 +1,6 @@
-# docker-pg_backup
+# docker-pg_scripts
 
-Docker container with pg_backup_rotated.sh script from https://wiki.postgresql.org/wiki/Automated_Backup_on_Linux
+Docker container with pg_backup_rotated.sh and pg_backup.sh script from https://wiki.postgresql.org/wiki/Automated_Backup_on_Linux
 This image runs pg_backup_rotated.sh daily via cron at configurable time. pg_backup_rotated.sh produces backups of various configurable formats and rotates weekly and daily backups.
 
 Docker environment variables:
