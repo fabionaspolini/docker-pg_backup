@@ -15,6 +15,9 @@ Docker environment variables:
  - ENABLE_GLOBALS_BACKUPS - will produce gzipped sql file containing the cluster globals, like users and passwords, if set to "yes" (default)
  - ENABLE_PLAIN_BACKUPS - will produce a gzipped plain-format backup if set to "yes" (default)
  - ENABLE_CUSTOM_BACKUPS - will produce a custom-format backup if set to "yes" (default)
+ - ENABLE_VACUUM - Wil execute vacumm at databases if set to "yes" (default)
+ - ENABLE_ANALYZE - Wil execute analyze at databases if set to "yes" (default)
+ - ENABLE_REINDEX - Wil execute reindex at databases if set to "yes" (default)
  - SCHEMA_ONLY_LIST - List of strings to match against in database name, separated by space or comma, for which we only wish to keep a backup of the schema, not the data. Any database names which contain any of these values will be considered candidates. (e.g. "system_log" will match "dev_system_log_2010-01"). Default is empty list.
 
 Volumes:
@@ -90,4 +93,3 @@ sudo docker build --build-arg PG_VERSION=12 -t pg_scripts:11 .
 ## Source Repository
 
 Official repository: <https://github.com/fabionaspolini/docker-pg_scripts>
-
